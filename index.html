@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+		<head>
+			<title> tooDo </title>
+			<meta name="viewport" content="width=device-width">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+				type="text/css" />
+			<link rel="stylesheet" href="tooDo.css" type="text/css" />
+</head>
+		
+<body>
+	<div id="container">
+		<div class="row">
+			<div class= "intro">
+				<h1> tooDos </h1>
+			</div>
+		<!--row-->
+		</div>
+		
+		<div class="row">
+			<div class="helpText">
+			<p id="first"> Enter task into text box of your tooDo list. </p>
+			
+			<p id="third"> Click the "X" to remove the item from your list </p>
+			</div>
+
+		<!--row-->
+		</div>
+		
+		<div class="row">
+			<div class= "col-12">
+			<input id="userInput" type="text" placeholder="NewItem..." maxlength="49">
+				<button type="button" id= "enter"> Enter </button>
+					
+			</div>
+		<!--row-->
+		</div>
+		
+		<!---empty list-->
+		<div class="row">
+			<div class="listItems">
+				<ul>
+				</ul>
+			</div>
+		</div>
+		
+		
+		
+	<!--container-->
+	</div>		
+	<script type="text/javascript">
+		
+
+		
+var enterButton= document.getElementById("enter");
+var input = document.getElementById("userInput");
+var ul= document.querySelector("ul");
+var	item= document.getElementsByTagName("li");
+
+function inputLength(){
+	return input.value.length;
+}
+
+function listLength(){
+	return item.length;
+}
+
+function createListElement(){
+	var li=document.createElement("li");
+
+
+	li.appendChild(document.createTextNode(input.value));
+	ul.appendChild(li);
+	input.value="";
+	
+	function crossOut(){
+	li.classList.toggle("done");
+	}
+
+	li.addEventListener("click",crossOut);
+
+	var dBtn=document.createElement("button");
+	dBtn.appendChild(document.createTextNode("X"));
+	li.appendChild(dBtn);
+	dBtn.addEventListener("click",deleteListItem);
+
+	function deleteListItem(){
+	li.classList.add("delete")
+	}
+}
+
+function addListAfterClick(){
+	if(inputLength()>0){createListElement();}
+}
+
+function addListAfterKeypress(event){
+	if (inputLength()>0 && event.keyCode===13){createListElement();}
+	
+}
+
+enterButton.addEventListener("click",addListAfterClick);
+
+input.addEventListener("keypress",addListAfterKeypress);
+
+	</script>
+</body>
